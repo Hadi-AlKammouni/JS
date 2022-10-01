@@ -3,3 +3,33 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #4A98
+}
+
+section {
+    background: #fff;
+    border-radius: 7px;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1050px;
+    gap: 10px;
+    padding: 10px;
+}
+
+.toals-board {
+    width: 210px;
+    padding: 15px 22px 0;
+}
+
+.drawing-board {
+    flex: 1;
+}
