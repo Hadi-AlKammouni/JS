@@ -3,7 +3,10 @@ toolBtns = document.querySelectorAll(".tool")
 
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
-let isDrawing = false
+// declaring global variables with default values
+let prevMouseX, prevMouseY, snapshot, 
+isDrawing = false
+selectedTool = "brush"
 brushWidth = 5
 
 window.addEventListener("load", () => {
@@ -12,19 +15,32 @@ window.addEventListener("load", () => {
     canvas.height = canvas.offsetHeight
 })
 
-const startDraw = () => {
+const drawRect = (e) => {
+    ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY)
+}
+
+const startDraw = (e) => {
     isDrawing = true
+    prevMouseX = e.offsetX
+    prevMouseY = e.offsetY
     ctx.beginPath() // creating new path to draw
     ctx.lineWidth = brushWidth // passing brushSize as line width
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height)
 }
 
 const drawing = (e) => {
     if(!isDrawing) return
+    ctx.putImageData(snapshot, 0, 0) // adding copied canvas data on to this canvas
 
-    // lineTo() creates a new line.. ctx.lineTo(x-coord., y-coord.)
-    // offsetX and offsetY returns x and y coordinates of the mouse pointer
-    ctx.lineTo(e.offsetX, e.offsetY) // creating line according to mouse pointer
-    ctx.stroke() //drawing/filling line with color
+    if(selectedTool === "brush") {
+        // lineTo() creates a new line.. ctx.lineTo(x-coord., y-coord.)
+        // offsetX and offsetY returns x and y coordinates of the mouse pointer
+        ctx.lineTo(e.offsetX, e.offsetY) // creating line according to mouse pointer
+        ctx.stroke() //drawing/filling line with color
+    } else if (selectedTool === "rectangle") {
+        drawRect(e)
+    }
+
 }
 
 toolBtns.forEach(btn => {
@@ -32,7 +48,8 @@ toolBtns.forEach(btn => {
         // changing dynamically the active class
         document.querySelector(".options .active").classList.remove("active")
         btn.classList.add("active")
-        console.log(btn.id)
+        selectedTool = btn.id
+        console.log(selectedTool)
     })    
 });
 
