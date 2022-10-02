@@ -3,6 +3,7 @@ const canvas = document.querySelector("canvas")
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
 let isDrawing = false
+brushWidth = 5
 
 window.addEventListener("load", () => {
     // to return viewable width/height of an element
@@ -13,6 +14,7 @@ window.addEventListener("load", () => {
 const startDraw = () => {
     isDrawing = true
     ctx.beginPath() // creating new path to draw
+    ctx.lineWidth = brushWidth // passing brushSize as line width
 }
 
 const drawing = (e) => {
