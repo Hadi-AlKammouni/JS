@@ -5,6 +5,7 @@ size_slider = document.querySelector("#size-slider")
 color_btns = document.querySelectorAll(".colors .option")
 color_picker = document.querySelector("#color-picker")
 clear_canvas = document.querySelector(".clear-canvas")
+save_img = document.querySelector(".save-img")
 
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
@@ -15,10 +16,17 @@ selectedTool = "brush"
 brushWidth = 5
 selectedColor = "#000"
 
+const setCanvasBackground = () => {
+    ctx.fillStyle = "#fff"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = selectedColor
+}
+
 window.addEventListener("load", () => {
     // to return viewable width/height of an element
     canvas.width = canvas.offsetWidth
     canvas.height = canvas.offsetHeight
+    setCanvasBackground()
 })
 
 const drawRect = (e) => {
@@ -103,6 +111,14 @@ color_picker.addEventListener("change", () => {
 
 clear_canvas.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    setCanvasBackground()
+})
+
+save_img.addEventListener("click", () => {
+    const link = document.createElement("a")
+    link.download = `${Date.now()}.jpg`
+    link.href = canvas.toDataURL()
+    link.click()
 })
 
 canvas.addEventListener("mousedown", startDraw)
