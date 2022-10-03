@@ -23,6 +23,13 @@ const drawRect = (e) => {
     ctx.fillRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY)
 }
 
+const drawCircle = (e) => {
+    ctx.beginPath()
+    let radius = Math.sqrt(Math.pow((prevMouseX - e.offsetX), 2) + (prevMouseY - e.offsetY), 2)
+    ctx.arc(prevMouseX, prevMouseY, radius, 0, 2*Math.PI)
+    fillColor.checked ? ctx.fill() : ctx.stroke()
+}
+
 const startDraw = (e) => {
     isDrawing = true
     prevMouseX = e.offsetX
@@ -43,6 +50,8 @@ const drawing = (e) => {
         ctx.stroke() //drawing/filling line with color
     } else if (selectedTool === "rectangle") {
         drawRect(e)
+    } else if (selectedTool === "circle") {
+        drawCircle(e)
     }
 
 }
