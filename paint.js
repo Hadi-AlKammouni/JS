@@ -30,6 +30,15 @@ const drawCircle = (e) => {
     fillColor.checked ? ctx.fill() : ctx.stroke()
 }
 
+const drawTriangle = (e) => {
+    ctx.beginPath()
+    ctx.moveTo(prevMouseX, prevMouseY) // moving the triangle to the mouse pointer
+    ctx.lineTo(e.offsetX, e.offsetY)
+    ctx.lineTo(prevMouseX * 2 - e.offsetX, e.offsetY) // creating the buttom angle of the triangle
+    ctx.closePath()
+    fillColor.checked ? ctx.fill() : ctx.stroke()
+}
+
 const startDraw = (e) => {
     isDrawing = true
     prevMouseX = e.offsetX
@@ -52,6 +61,8 @@ const drawing = (e) => {
         drawRect(e)
     } else if (selectedTool === "circle") {
         drawCircle(e)
+    } else {
+        drawTriangle(e)
     }
 
 }
