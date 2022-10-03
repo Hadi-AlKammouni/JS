@@ -3,6 +3,7 @@ toolBtns = document.querySelectorAll(".tool")
 fillColor = document.querySelector("#fill-color")
 sizeSlider = document.querySelector("#size-slider")
 colorBtns = document.querySelectorAll(".colors .option")
+colorPicker = document.querySelector("#color-picker")
 
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
@@ -91,6 +92,11 @@ colorBtns.forEach(btn => {
         btn.classList.add("selected")
         selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color")
     })
+})
+
+colorPicker.addEventListener("change", () => {
+    colorPicker.parentElement.style.background = colorPicker.value
+    colorPicker.parentElement.click()
 })
 
 canvas.addEventListener("mousedown", startDraw)
