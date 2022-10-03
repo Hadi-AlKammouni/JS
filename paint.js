@@ -1,10 +1,10 @@
 const canvas = document.querySelector("canvas")
-toolBtns = document.querySelectorAll(".tool")
-fillColor = document.querySelector("#fill-color")
-sizeSlider = document.querySelector("#size-slider")
-colorBtns = document.querySelectorAll(".colors .option")
-colorPicker = document.querySelector("#color-picker")
-clearCanvas = document.querySelector(".clear-canvas")
+tool_btns = document.querySelectorAll(".tool")
+fill_color = document.querySelector("#fill-color")
+size_slider = document.querySelector("#size-slider")
+color_btns = document.querySelectorAll(".colors .option")
+color_picker = document.querySelector("#color-picker")
+clear_canvas = document.querySelector(".clear-canvas")
 
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
@@ -22,7 +22,7 @@ window.addEventListener("load", () => {
 })
 
 const drawRect = (e) => {
-    if(!fillColor.checked) {
+    if(!fill_color.checked) {
         return ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY)
     }
     ctx.fillRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY)
@@ -32,7 +32,7 @@ const drawCircle = (e) => {
     ctx.beginPath()
     let radius = Math.sqrt(Math.pow((prevMouseX - e.offsetX), 2) + (prevMouseY - e.offsetY), 2)
     ctx.arc(prevMouseX, prevMouseY, radius, 0, 2*Math.PI)
-    fillColor.checked ? ctx.fill() : ctx.stroke()
+    fill_color.checked ? ctx.fill() : ctx.stroke()
 }
 
 const drawTriangle = (e) => {
@@ -41,7 +41,7 @@ const drawTriangle = (e) => {
     ctx.lineTo(e.offsetX, e.offsetY)
     ctx.lineTo(prevMouseX * 2 - e.offsetX, e.offsetY) // creating the buttom angle of the triangle
     ctx.closePath()
-    fillColor.checked ? ctx.fill() : ctx.stroke()
+    fill_color.checked ? ctx.fill() : ctx.stroke()
 }
 
 const startDraw = (e) => {
@@ -75,7 +75,7 @@ const drawing = (e) => {
 
 }
 
-toolBtns.forEach(btn => {
+tool_btns.forEach(btn => {
     btn.addEventListener("click", () => { // adding click event to all tool option
         // changing dynamically the active class
         document.querySelector(".options .active").classList.remove("active")
@@ -85,9 +85,9 @@ toolBtns.forEach(btn => {
     })    
 });
 
-sizeSlider.addEventListener("change", () => brushWidth = sizeSlider.value)
+size_slider.addEventListener("change", () => brushWidth = size_slider.value)
 
-colorBtns.forEach(btn => {
+color_btns.forEach(btn => {
     btn.addEventListener("click", () => {
         // changing dynamically the selected class
         document.querySelector(".options .selected").classList.remove("selected")
@@ -96,12 +96,12 @@ colorBtns.forEach(btn => {
     })
 })
 
-colorPicker.addEventListener("change", () => {
-    colorPicker.parentElement.style.background = colorPicker.value
-    colorPicker.parentElement.click()
+color_picker.addEventListener("change", () => {
+    color_picker.parentElement.style.background = color_picker.value
+    color_picker.parentElement.click()
 })
 
-clearCanvas.addEventListener("click", () => {
+clear_canvas.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 })
 
