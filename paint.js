@@ -2,6 +2,7 @@ const canvas = document.querySelector("canvas")
 toolBtns = document.querySelectorAll(".tool")
 fillColor = document.querySelector("#fill-color")
 sizeSlider = document.querySelector("#size-slider")
+colorBtns = document.querySelectorAll(".colors .option")
 
 ctx = canvas.getContext("2d") // getContext() method returns a drawing context on the canvas
 
@@ -10,6 +11,7 @@ let prevMouseX, prevMouseY, snapshot,
 isDrawing = false
 selectedTool = "brush"
 brushWidth = 5
+selectedColor = "#000"
 
 window.addEventListener("load", () => {
     // to return viewable width/height of an element
@@ -46,6 +48,8 @@ const startDraw = (e) => {
     prevMouseY = e.offsetY
     ctx.beginPath() // creating new path to draw
     ctx.lineWidth = brushWidth // passing brushSize as line width
+    ctx.strokeStyle = selectedColor
+    ctx.fillStyle = selectedColor
     snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height)
 }
 
@@ -79,6 +83,15 @@ toolBtns.forEach(btn => {
 });
 
 sizeSlider.addEventListener("change", () => brushWidth = sizeSlider.value)
+
+colorBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        // changing dynamically the selected class
+        document.querySelector(".options .selected").classList.remove("selected")
+        btn.classList.add("selected")
+        selectedColor = window.getComputedStyle(btn).getPropertyValue("background-color")
+    })
+})
 
 canvas.addEventListener("mousedown", startDraw)
 canvas.addEventListener("mousemove", drawing)
