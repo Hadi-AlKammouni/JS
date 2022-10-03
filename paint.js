@@ -58,7 +58,8 @@ const drawing = (e) => {
     if(!isDrawing) return
     ctx.putImageData(snapshot, 0, 0) // adding copied canvas data on to this canvas
 
-    if(selectedTool === "brush") {
+    if(selectedTool === "brush" || selectedTool === "eraser") {
+        ctx.strokeStyle = selectedTool === "eraser" ? "#fff" :selectedColor
         // lineTo() creates a new line.. ctx.lineTo(x-coord., y-coord.)
         // offsetX and offsetY returns x and y coordinates of the mouse pointer
         ctx.lineTo(e.offsetX, e.offsetY) // creating line according to mouse pointer
